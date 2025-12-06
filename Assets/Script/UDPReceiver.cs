@@ -7,12 +7,11 @@ using System.Threading;
 public class UDPReceiver : MonoBehaviour
 {
     [Header("Configuration")]
-    public int port = 5005; // Doit correspondre à ton script Python
+    public int port = 5005; // Same number as the sender
 
     [Header("Data (Read Only)")]
-    public string lastReceivedPacket = ""; // Tu verras la valeur changer ici
-    public float currentStressScore = 0f;  // La valeur convertie en nombre
-
+    public string lastReceivedPacket = ""; 
+    public float currentStressScore = 0f;  
     private Thread receiveThread;
     private UdpClient client;
     private bool isRunning = true;
@@ -22,7 +21,7 @@ public class UDPReceiver : MonoBehaviour
         receiveThread = new Thread(new ThreadStart(ReceiveData));
         receiveThread.IsBackground = true;
         receiveThread.Start();
-        Debug.Log($"UDP Receiver démarré sur le port {port}...");
+        Debug.Log($"UDP Receiver started on port {port}...");
     }
 
     private void ReceiveData()
@@ -37,14 +36,12 @@ public class UDPReceiver : MonoBehaviour
                     IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
                     byte[] data = client.Receive(ref anyIP);
 
-                    // Conversion des bytes en texte
+                    
                     string text = Encoding.UTF8.GetString(data);
 
-                    // On stocke la donnée pour l'Update()
                     lastReceivedPacket = text;
 
-                    // On essaie de convertir en nombre (float)
-                    // "CultureInfo.InvariantCulture" est vital pour gérer le point "." vs virgule ","
+                   
                     if (float.TryParse(text, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out float result))
                     {
                         currentStressScore = result;
@@ -52,31 +49,30 @@ public class UDPReceiver : MonoBehaviour
                 }
                 catch (System.Exception err)
                 {
-                    // On ignore les erreurs mineures de timeout
+                    // We ignore minor timeout errors
                     // Debug.Log(err.ToString());
                 }
             }
         }
         catch (System.Exception e)
         {
-            Debug.LogError("Erreur UDP: " + e.Message);
+            Debug.LogError("UDP error: " + e.Message);
         }
     }
 
-    // Le Thread Unity principal lit les valeurs reçues par le Thread UDP
+
+    // The main Unity thread reads the values received by the UDP thread
     void Update()
     {
-        // Simple test visuel : Si on reçoit des données, on l'affiche
-        // Tu peux désactiver ce log si ça spamme trop
-        // Debug.Log($"Reçu: {lastReceivedPacket} | Stress: {currentStressScore}");
+        // Debug.Log($"Received: {lastReceivedPacket} | Stress: {currentStressScore}");
     }
 
     void OnApplicationQuit()
     {
-        // Nettoyage très important pour ne pas bloquer le port
+        // cleanup to avoid blocking the port
         isRunning = false;
         if (client != null) client.Close();
         if (receiveThread != null) receiveThread.Abort();
-        Debug.Log("UDP Receiver arrêté.");
+        Debug.Log("UDP Receiver stopped.");
     }
 }
