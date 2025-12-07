@@ -20,6 +20,9 @@ We need all the source files that you used, you can organise your repo as you se
 Présentation : 
 -https://www.canva.com/design/DAG6vKF7XAc/tUxJFLesbFlGHUr8sZ7Fxg/edit
 
+log:
+https://docs.google.com/document/d/1dcBwUhXpeCAIAmDC8XECCDHjRAWR9v6qXXW7TAjNmVA/edit?usp=sharing
+
 Pluggin XR Unity + Meta 
 
 Requirements
