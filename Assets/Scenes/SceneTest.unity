@@ -576,8 +576,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.399298, y: 5.493969, z: 3.220922}
-  m_Center: {x: 0.1331737, y: 0.92724335, z: 0}
+  m_Size: {x: 7.056159, y: 6.787831, z: 3.4447832}
+  m_Center: {x: -0.6952567, y: 1.5741742, z: -0.11193037}
 --- !u!23 &527765565
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1538,7 +1538,7 @@ MonoBehaviour:
   mainCamera: {fileID: 1237187787}
   rayDistance: 100
   prefabObject: {fileID: 8764834120174495393, guid: a71bea3dd4a5f77418afeab9d1b34aa5, type: 3}
-  timeToTrigger: 2
+  timeToTrigger: 1
   spawnDistance: 1
 --- !u!4 &2051561583
 Transform:
