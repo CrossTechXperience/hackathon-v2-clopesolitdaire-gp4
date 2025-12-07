@@ -56,7 +56,7 @@ public class EyesTrackingSimulation : MonoBehaviour
             }
             if (go.GetComponent<ObjectToSpawn>() != null)
             {
-                Vector3 leftSpawn = mainCamera.transform.position - mainCamera.transform.right * spawnDistance;
+                Vector3 leftSpawn = go.transform.position - go.transform.right * spawnDistance;
                 Instantiate(prefabObject, leftSpawn, Quaternion.identity);
             }
         }
